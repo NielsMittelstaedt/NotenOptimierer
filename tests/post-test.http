@@ -1,0 +1,6 @@
+post http://127.0.0.1:8000/
+Content-Type: application/json
+
+{
+    "progra": 1.3
+}
