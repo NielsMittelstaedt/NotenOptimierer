@@ -8,16 +8,21 @@ import json
 from .solver import Solver
 from .forms import SubjectForm
 
+import random
+
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         
-        print(json_data["progra"])
-
+        thesis = (1.0, 22.5)
+        solver = Solver([], thesis)
+        best_node = solver.solve()
+        print(best_node)
         data={
             'name': 'Nikals'
         }
+
         return JsonResponse(data)
 
     form = SubjectForm()
