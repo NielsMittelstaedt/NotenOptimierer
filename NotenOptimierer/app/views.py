@@ -25,5 +25,13 @@ def index(request):
 
         return JsonResponse(data)
 
+
     form = SubjectForm()
     return render(request, 'app/form.html', {'form': form})
+
+@csrf_exempt
+def informatik(request):
+    # Return a list of all values needed for the calculation
+    if request.method == 'GET':
+        json_data = json.load(open('assets/informatik.json'))
+        return JsonResponse(json_data)

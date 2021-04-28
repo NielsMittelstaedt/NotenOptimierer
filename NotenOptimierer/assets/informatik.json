@@ -1,0 +1,225 @@
+{
+    "maxDelCredits": 30,
+    "sections" : [
+        {
+            "name": "Praktische Informatik",
+            "id": "praktInfo",
+            "relevantCredits": 28,
+            "totalCredits": 28,
+            "subjects": [
+                {
+                    "name": "Programmierung",
+                    "id": "progra",
+                    "credits": "8"
+                },
+                {
+                    "name": "Datenstrukturen und Algorithmen",
+                    "id": "dsal",
+                    "credits": "8"
+                },
+                {
+                    "name": "Einführung in die Softwaretechnik",
+                    "id": "swt",
+                    "credits": "6"
+                },
+                {
+                    "name": "Datenbanken und Informationssysteme",
+                    "id": "dbis",
+                    "credits": "6"
+                }
+            ]
+        },
+        {
+            "name": "Technische Informatik",
+            "id": "techInfo",
+            "relevantCredits": 18,
+            "totalCredits": 26,
+            "subjects": [
+                {
+                    "name": "Technische Informatik",
+                    "id": "ti",
+                    "credits": 6
+                },
+                {
+                    "name": "Betriebssysteme und Systemsoftware",
+                    "id": "bus",
+                    "credits": 6
+                },
+                {
+                    "name": "Datenkommunikation und Sicherheit",
+                    "id": "datkom",
+                    "credits": 6
+                }
+            ]
+        },
+        {
+            "name": "Theoretische Informatik",
+            "id": "theoInfo",
+            "relevantCredits": 20,
+            "totalCredits": 20,
+            "subjects": [
+                {
+                    "name": "Formale Systeme, Automaten, Prozesse",
+                    "id": "fosap",
+                    "credits": 6
+                },
+                {
+                    "name": "Berechenbarkeit und Komplexität",
+                    "id": "buk",
+                    "credits": 7
+                },
+                {
+                    "name": "Mathematische Logik",
+                    "id": "malo",
+                    "credits": 7
+                }
+            ]
+        },
+        {
+            "name": "Mathematik",
+            "id": "mathe",
+            "relevantCredits": 26,
+            "totalCredits": 26,
+            "subjects": [
+                {
+                    "name": "Diskrete Strukturen",
+                    "id": "ds",
+                    "credits": 6
+                },
+                {
+                    "name": "Analysis für Informatiker",
+                    "id": "afi",
+                    "credits": 8
+                },
+                {
+                    "name": "Lineare Algebra",
+                    "id": "la",
+                    "credits": 6
+                },
+                {
+                    "name": "Einführung in die angewandte Stochastik",
+                    "id": "stoch",
+                    "credits": 6
+                }
+            ]
+        },
+        {
+            "name": "Sonstige Studienleistungen",
+            "id": "sonst",
+            "relevantCredits": 8,
+            "totalCredits": 41.5,
+            "subjects": [
+                {
+                    "name": "Proseminar",
+                    "id": "prosem",
+                    "credits": 3
+                },
+                {
+                    "name": "Seminar",
+                    "id": "sem",
+                    "credits": 5
+                },
+                {
+                    "name": "Bachelorarbeit und Kolloquium",
+                    "id": "thesis",
+                    "credits": 22.5,
+                    "removable": false
+                }
+            ]
+        },
+        {
+            "name": "Wahlpflicht",
+            "id": "wahl",
+            "relevantCredits": 24,
+            "totalCredits": 24,
+            "subjects": [
+                {
+                    "name": "Wahlpflicht1",
+                    "id": "wahl1",
+                    "credits": 6
+                },
+                {
+                    "name": "Wahlpflicht2",
+                    "id": "wahl2",
+                    "credits": 6
+                },
+                {
+                    "name": "Wahlpflicht3",
+                    "id": "wahl3",
+                    "credits": 6
+                },
+                {
+                    "name": "Wahlpflicht4",
+                    "id": "wahl4",
+                    "credits": 6
+                }
+            ]
+        },
+        {
+            "name": "Anwendungsfach",
+            "categories": [
+                {
+                    "name": "Betriebswirtschaftslehre",
+                    "id": "bwl",
+                    "totalCredits": 22,
+                    "relevantCredits": 22,
+                    "subjects": [
+                        {
+                            "name": "Einführung in die BWL",
+                            "id": "ebwl",
+                            "credits": 6
+                        },
+                        {
+                            "name": "Quantitative Methoden",
+                            "id": "qm",
+                            "credits": 6
+                        },
+                        {
+                            "name": "Entscheidungslehre",
+                            "id": "elehre",
+                            "credits": 6
+                        },
+                        {
+                            "name": "Rechnungswesen A",
+                            "id": "rewea",
+                            "credits": 4
+                        }
+                    ]
+                },
+                {
+                    "name": "Psychologie",
+                    "id": "psycho",
+                    "totalCredits": 22,
+                    "relevantCredits": 22,
+                    "subjects": [
+                        {
+                            "name": "Social Psychology",
+                            "id": "spsycho",
+                            "credits": 4
+                        },
+                        {
+                            "name": "Statistics",
+                            "id": "stats",
+                            "credits": 6
+                        },
+                        {
+                            "name": "Media Psychology",
+                            "id": "mpsycho",
+                            "credits": 4
+                        },
+                        {
+                            "name": "Communication Psychology",
+                            "id": "compsycho",
+                            "credits": 4
+                        },
+                        {
+                            "name": "Cognitive Psychology",
+                            "id": "cogpsycho",
+                            "credits": 4
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

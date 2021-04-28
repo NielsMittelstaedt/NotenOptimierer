@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GradeForm from './GradeForm';
+import App from './App';
 import './index.css';
 
 ReactDOM.render(
-  <div>
-    <p>moin</p>
-    <GradeForm/>
-  </div>,
+  <App/>,
   document.getElementById('root')
 );
