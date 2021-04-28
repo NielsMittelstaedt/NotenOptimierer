@@ -10,7 +10,9 @@ class Informatik extends React.Component {
             applicationSections: [],
             formElements: [],
             options: [],
-            selectedAppl: ""
+            selectedAppl: "",
+            applicationInputs: {},
+            numbers: {}
         };
     }
 
@@ -39,12 +41,16 @@ class Informatik extends React.Component {
 
     createForm(){
         let form = [];
+        let applicationInputs = {};
         let sections = this.state.sections;
+        let applicationSections = this.state.applicationSections;
+        let numbers = {};
 
         // Create the Inputs for all basic subjects
         sections.forEach(section => {
-            form.push(<h3 key={section.name}>{section.name}</h3>)
+            form.push(<h3 key={section.id}>{section.name}</h3>)
             section.subjects.forEach(subject => {
+                numbers[subject.id] = 0;
                 form.push(
                     <div id={subject.id+"-container"} key={subject.id+"-container"}>
                         <label htmlFor={subject.id}>{subject.name}</label>
@@ -52,6 +58,10 @@ class Informatik extends React.Component {
                             id={subject.id}
                             key={subject.id}
                             name={subject.name}
+                            onChange={this.numberChange}
+                            value={this.state.numbers[subject.id] === 0 ? "": this.state.numbers[subject.id]}
+                            min="1"
+                            max="5"
                             type="number"
                         />
                     </div>  
@@ -60,15 +70,46 @@ class Informatik extends React.Component {
         });
         
         // create the Inputs for all application subjects
-        
+        applicationSections.forEach(section => { 
+            let formArray = [];
 
-        this.setState({formElements: form});
+            formArray.push(<h3 key={section.id}>{section.name}</h3>);
+
+            section.subjects.forEach(subject => {
+                numbers[subject.id] = 0;
+                formArray.push(
+                    <div id={subject.id+"-container"} key={subject.id+"-container"}>
+                        <label htmlFor={subject.id}>{subject.name}</label>
+                        <input
+                            id={subject.id}
+                            key={subject.id}
+                            name={subject.name}
+                            onChange={this.numberChange}
+                            value={this.state.numbers[subject.id] === 0 ? "": this.state.numbers[subject.id]}
+                            min="1"
+                            max="5"
+                            type="number"
+                        />
+                    </div>
+                );
+            });
+
+            applicationInputs[section.id] = formArray;
+        })
+
+        this.setState({formElements: form, applicationInputs: applicationInputs});
     }
 
-    selectApplication(selectedOption) {
-        this.setState({
-            selectedAppl: selectedOption
-        });
+    selectApplication = (option) => {
+        this.setState({selectedAppl: option.value});
+    }
+
+    numberChange = event => {
+        let { value, min, max, id } = event.target;
+        value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+        let numbers = this.state.numbers;
+        numbers[id] = value;
+        this.setState({ numbers: numbers });
     }
 
     render() {
@@ -80,12 +121,13 @@ class Informatik extends React.Component {
                 <form >
                   {this.state.formElements}
                   {this.state.options && this.state.options.length ? 
-                    <Select options={this.state.options} onChange={this.selectApplication}/>
+                    <Select options={this.state.options} onChange={e => this.selectApplication(e)}/>
                     : <div></div>
                   }
                   {
                     this.state.selectedAppl !== "" ?
-                    this.state.
+                    this.state.applicationInputs[this.state.selectedAppl]
+                    : <div></div>
                   }
                   <input 
                     type="button"
@@ -94,7 +136,6 @@ class Informatik extends React.Component {
                 </form> : <div></div>
             }
           </div>
-          
       );
     }
 }
