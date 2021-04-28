@@ -112,13 +112,42 @@ class Informatik extends React.Component {
         this.setState({ numbers: numbers });
     }
 
+    handleSubmit = event => {
+        if(this.state.selectedAppl){
+
+            // create the object for the post request
+            let postObj = {};
+
+            this.state.sections.forEach(section => {
+                let sectionObj = {};
+
+                section.subjects.forEach(subject => {
+                    let value = document.getElementById(subject.id).value;
+                    if(value)
+                        sectionObj[subject.id] = parseFloat(document.getElementById(subject.id).value);
+                });
+
+                postObj[section.id] = sectionObj;
+            });
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postObj)
+            };
+            fetch('http://localhost:8000/informatik', requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data));
+        }
+    }
+
     render() {
       return (
           <div className="container">
             <h3>Informatik</h3>
             {
                 this.state.formElements.length > 0 ?
-                <form >
+                <form>
                   {this.state.formElements}
                   {this.state.options && this.state.options.length ? 
                     <Select options={this.state.options} onChange={e => this.selectApplication(e)}/>
@@ -132,6 +161,7 @@ class Informatik extends React.Component {
                   <input 
                     type="button"
                     value="Submit"
+                    onClick={this.handleSubmit}
                   />
                 </form> : <div></div>
             }

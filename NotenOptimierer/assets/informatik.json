@@ -2,6 +2,20 @@
     "maxDelCredits": 30,
     "sections" : [
         {
+            "name": "Nicht löschbare Noten",
+            "id": "nonDel",
+            "relevantCredits": 0,
+            "totalCredits": 22.5,
+            "subjects": [
+                {
+                    "name": "Bachelorarbeit und Kolloquium",
+                    "id": "thesis",
+                    "credits": 22.5,
+                    "removable": false
+                }
+            ]
+        },
+        {
             "name": "Praktische Informatik",
             "id": "praktInfo",
             "relevantCredits": 28,
@@ -107,7 +121,7 @@
             "name": "Sonstige Studienleistungen",
             "id": "sonst",
             "relevantCredits": 8,
-            "totalCredits": 41.5,
+            "totalCredits": 19,
             "subjects": [
                 {
                     "name": "Proseminar",
@@ -118,12 +132,6 @@
                     "name": "Seminar",
                     "id": "sem",
                     "credits": 5
-                },
-                {
-                    "name": "Bachelorarbeit und Kolloquium",
-                    "id": "thesis",
-                    "credits": 22.5,
-                    "removable": false
                 }
             ]
         },
