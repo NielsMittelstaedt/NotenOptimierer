@@ -23,19 +23,20 @@ class Module():
         return self.__str__()
 
 
-file = "./noten.pdf"
-df = tabula.read_pdf(file, pages='2', multiple_tables=True)
-table = df[0]
+def getModules(filename):
+    df = tabula.read_pdf(filename, pages='2', multiple_tables=True)
+    table = df[0]
 
-modules = []
+    modules = []
 
-for module in table.values:
-    if module[2] == "BE":
-        modules.append(Module(module[0], module[1], module[4]))
+    for module in table.values:
+        if module[2] == "BE":
+            modules.append(Module(module[0], module[1], module[4]))
 
-print(modules)
+    return modules
 
 
+modules = getModules("./noten.pdf")
 gradedModules = [module for module in modules if module.graded == True]
 
 
