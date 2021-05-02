@@ -3,7 +3,7 @@
 
 GradePair parseGrade(string pair) {
 	vector<string> splitPair = split(pair, ',');
-	return GradePair(atof(splitPair[0].c_str()), atof(splitPair[1].c_str()));
+	return GradePair(atof(splitPair[0].c_str()), atof(splitPair[1].c_str()), splitPair[2]);
 }
 
 vector<string> split(string toSplit, char delimeter) {
@@ -22,12 +22,13 @@ vector<vector<GradePair>> parseFile(char *filename) {
 	std::getline(infile, line);
 	vector<vector<GradePair>> result;
 	while(std::getline(infile, line)) {
-		vector<string> splitLine = split(line, ';');
+		vector<string> splitLine = split(line, ';');		
 		vector<GradePair> section;
 		for(string pair : splitLine) {
 			section.push_back(parseGrade(pair));
 		}
 		result.push_back(section);
+		
 	}
 	return result;
 }
@@ -44,7 +45,7 @@ void printGrades(vector<vector<GradePair>> grades) {
 	cout << "}\n";
 }
 
-vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits) {
+vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits, char* filename) {
 	//Sort the grades in each section in descending order
 	
 	for(vector<GradePair> &section : input) {
@@ -61,7 +62,7 @@ vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits
 			gradePoints += pair.credits*pair.grade;
 			credits += pair.credits;
 		}
-		sectionGrades.push_back(GradePair(gradePoints/credits, credits));
+		sectionGrades.push_back(GradePair(gradePoints/credits, credits, "sectionGrade"));
 	}
 
 	//Branch and Bound
@@ -69,7 +70,7 @@ vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits
 	activeNodes.push(Node(vector<int>{-1}, input[0][0], deletableCredits));
 
 	double bestUB = 4.0;
-	Node bestNode(vector<int>{}, GradePair(4, 0), 10000000);
+	Node bestNode(vector<int>{}, GradePair(4, 0, "ERROR"), 10000000);
 
 
 	while(!activeNodes.empty()) {
@@ -102,12 +103,20 @@ vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits
 
 	vector<GradePair> gradesToDelete;
 	for(int i = 0; i < input.size(); ++i) {
-		if(bestNode.deletions[i] == -1) {
-			gradesToDelete.push_back(GradePair(0, 0));
-		} else {
+		if(bestNode.deletions[i] != -1) {
 			gradesToDelete.push_back(input[i][bestNode.deletions[i]]);
 		}
 	}
+
+	
+	fstream ofs;
+	ofs.open(filename, ios::out | ios::trunc);
+	ofs << bestNode.gradepair.grade << "\n";
+	for(int i = 0; i < gradesToDelete.size(); ++i) {
+		ofs << gradesToDelete[i].subjectId << (i == gradesToDelete.size()-1?"":"\n");
+	}
+	ofs.close();
+	
 
 	return gradesToDelete;
 }
@@ -143,13 +152,15 @@ int main(int argc, char *argv[]) {
 	std::ifstream infile(filename);
 	string controlline;
 	std::getline(infile, controlline);
+	
 	double deletableCredits = atof(controlline.c_str());
-
+	
 	vector<vector<GradePair>> grades = parseFile(argv[1]);
-	vector<GradePair> result = solve(grades, deletableCredits);
-	for(auto gp : result) {
-		std::cout << gp.grade << "," << gp.credits << "\n";
-	}
+	vector<GradePair> result = solve(grades, deletableCredits, argv[1]);
+
+	
+	
+	
 	
 	return 0;
 }
