@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .solver import Solver
 from .forms import SubjectForm
+from backend.run import *
 
 import random
 
@@ -35,3 +36,7 @@ def informatik(request):
     if request.method == 'GET':
         json_data = json.load(open('assets/informatik.json'))
         return JsonResponse(json_data)
+    elif request.method == "POST":
+        json_data = json.loads(request.body)
+        result = solve_cpp(json_data)
+        return JsonResponse(result)

@@ -21,7 +21,7 @@ class Informatik extends React.Component {
     }
 
     fetchJson(){
-        fetch('http://localhost:8000/informatik')
+        fetch('http://localhost:8000/informatik/')
             .then(res => res.json())
             .then(json => {
                 let sections = [...json.sections];
@@ -135,7 +135,7 @@ class Informatik extends React.Component {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(postObj)
             };
-            fetch('http://localhost:8000/informatik', requestOptions)
+            fetch('http://localhost:8000/informatik/', requestOptions)
                 .then(response => response.json())
                 .then(data => console.log(data));
         }

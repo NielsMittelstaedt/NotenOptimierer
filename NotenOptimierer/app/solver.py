@@ -11,12 +11,12 @@ class Solver:
 
         self.input = input_sorted
         self.thesis = thesis
+        print("Input: ", self.input)
+        print("Thesis: ", self.thesis)
 
     def calc_lb(self, node):
-        (del_nodes, grade, credit_sum, remaining_credits) = node
+        (del_nodes, grade, credit_sum, _) = node
         section_index = len(del_nodes)
-
-        deletions = []
 
         sum_grades = grade*credit_sum
         sum_credits = credit_sum
@@ -63,8 +63,8 @@ class Solver:
 
     def solve(self):
 
-        #queue = [([], self.thesis[0], self.thesis[1], 30)]
-        queue = [([], 0, 0, 30)]
+        queue = [([], self.thesis[0], self.thesis[1], 30)]
+        #queue = [([], 0, 0, 30)]
         best_node = ([], 4, 0, 30)
         sup = 4.0
 
@@ -72,7 +72,7 @@ class Solver:
             node = queue.pop(0)
             (del_nodes, grade, credit_sum, remaining_credits) = node
             section_index = len(del_nodes)
-
+            print("Handling node: ", node)
             if section_index == len(self.input):
                 if grade <= best_node[1]:
                     best_node = node
@@ -81,10 +81,11 @@ class Solver:
                 sum_grades = 0
                 sum_credits = 0
 
+                
                 for i in range(len(self.input[section_index])):
                     sum_grades += self.input[section_index][i][0]*self.input[section_index][i][1]
                     sum_credits += self.input[section_index][i][1]
-
+                
                 for i in range(len(self.input[section_index])):
                     if self.input[section_index][i][1] <= remaining_credits:
                         grade_i = (grade*credit_sum+sum_grades-self.input[section_index][i][0]*self.input[section_index][i][1])/(credit_sum+sum_credits-self.input[section_index][i][1])
@@ -92,6 +93,8 @@ class Solver:
                         lb = self.calc_lb(node_i)
                         ub = self.calc_ub(node_i)
                         
+                        print("LB: ", lb , " UB: ", ub , "bUB: ", sup)
+
                         if ub < sup:
                             sup = ub
 
@@ -101,13 +104,12 @@ class Solver:
                 node_none = (del_nodes + [-1],(grade*credit_sum+sum_grades)/(credit_sum+sum_credits), credit_sum+sum_credits, remaining_credits)
                 lb = self.calc_lb(node_none)
                 ub = self.calc_ub(node_none)
-                
+                print("LB: ", lb , " UB: ", ub , "bUB: ", sup)
                 if ub < sup:
                     sup = ub
 
                 if(lb <= sup):
                     queue.append(node_none)
 
-        print(self.input)
         return best_node
         
