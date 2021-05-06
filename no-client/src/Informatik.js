@@ -124,11 +124,21 @@ class Informatik extends React.Component {
                 section.subjects.forEach(subject => {
                     let value = document.getElementById(subject.id).value;
                     if(value)
-                        sectionObj[subject.id] = parseFloat(document.getElementById(subject.id).value);
+                        sectionObj[subject.id] = parseFloat(value);
                 });
 
                 postObj[section.id] = sectionObj;
             });
+
+            postObj[this.state.selectedAppl] = {};
+
+            this.state.applicationSections
+                .filter(s => s.id === this.state.selectedAppl)[0].subjects
+                .forEach(subject => {
+                    let value = document.getElementById(subject.id).value;
+                    if(value)
+                        postObj[this.state.selectedAppl][subject.id] = parseFloat(value);
+                });
 
             const requestOptions = {
                 method: 'POST',

@@ -46,8 +46,8 @@ void printGrades(vector<vector<GradePair>> grades) {
 }
 
 vector<GradePair> solve(vector<vector<GradePair>> input, double deletableCredits, char* filename) {
-	//Sort the grades in each section in descending order
 	
+	//Sort the grades in each section in descending order
 	for(vector<GradePair> &section : input) {
 		sort(section.begin(), section.end());
 	}
@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
 	vector<GradePair> result = solve(grades, deletableCredits, argv[1]);
 
 	
-	
+	std::cout<<"Test" << std::endl;
 	
 	
 	return 0;
